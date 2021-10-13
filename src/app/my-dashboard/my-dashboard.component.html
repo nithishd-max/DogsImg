@@ -1,0 +1,87 @@
+<div class="main-container">
+  <div class="row">
+    <div class="col-sm-4">
+      <form>
+        <mat-form-field>
+          <mat-select
+            placeholder="Select breed"
+            [(ngModel)]="selectedValue"
+            name="breed"
+            (ngModelChange)="selectedBreed($event)"
+          >
+            <mat-option *ngFor="let breed of allBreeds" [value]="breed">
+              {{ breed }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="col-sm-8">
+      <button mat-flat-button color="primary" (click)="getRandomPics()">
+        Random Refresh
+      </button>
+    </div>
+  </div>
+</div>
+<mat-divider></mat-divider>
+
+<div class="grid-container">
+  <mat-grid-list cols="2" style="padding: 5%">
+    <mat-card class="dashboard-card" *ngFor="let card of cards">
+      <mat-card-header>
+        <!-- Static avatar image for card-->
+
+        <img
+          mat-card-avatar
+          class="example-header-image"
+          src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+        />
+
+        <mat-card-title>Dogy {{ card.id }}</mat-card-title>
+
+        <mat-card-subtitle
+          >selectedBreed:
+
+          <i>{{ selectedValue }}</i>
+        </mat-card-subtitle>
+
+        <button
+          mat-icon-button
+          class="more-button"
+          [matMenuTriggerFor]="menu"
+          aria-label="Toggle menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item>Expand</button>
+
+          <button mat-menu-item>Remove</button>
+        </mat-menu>
+      </mat-card-header>
+
+      <img mat-card-image src="{{ card.img_link }}" alt="Photo of a dog" />
+
+      <!-- Static content of card-->
+
+      <mat-card-content class="dashboard-card-content">
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz
+          breeds of dog from Japan. A small, agile dog that copes very well with
+          mountainous terrain, the Shiba Inu was originally bred for hunting.
+        </p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button (click)="count(card)">
+          <b>{{ card.likes }} </b>
+
+          <i class="material-icons"> favorite_border </i>
+        </button>
+
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-list>
+</div>
